@@ -9,7 +9,7 @@
         {
             this.Conta = new ContaBancaria();
             this.Login = "pedro";
-            Utils.SalvarUsuarioEmArquivo(this);
+            SalvarUsuarioEmArquivo(this);
         }
 
         //Contrutor para o CsvHelper

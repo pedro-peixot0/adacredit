@@ -5,7 +5,7 @@ using CsvHelper.Configuration;
 
 namespace AdaCredit
 {
-    public partial class Utils
+    public partial class Usuario
     {
         private const int WorkFactor = 12;
         public static string GerarSalt()
