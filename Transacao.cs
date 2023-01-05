@@ -1,4 +1,4 @@
-﻿namespace AdaCredit
+﻿namespace AdaCreditBackend
 {
     public class Transacao
     {
@@ -11,6 +11,7 @@
         public string TipoTransacao {get;set;}
         public byte SentidoTransacao {get;set;} // 0 - Débito/Saída, 1 - Crédito/Entrada
         public decimal ValorTransacao {get;set;}
+        public string Resolucao {get;set;}
         private string[] TiposDeTransacaoDiponiveis = new string[3]{"DOC", "TED", "TEF"}; 
 
         public Transacao(
@@ -18,14 +19,10 @@
             ushort numeroBancoDestino,
             ushort numeroAgenciaDestino,
             int numeroContaDestino,
+            byte sentidoTransacao,
             string tipoTransacao,
             decimal valorTransacao)
         {
-            if (!TiposDeTransacaoDiponiveis.Contains(tipoTransacao))
-                throw new ArgumentException("Tipo de transação inválido!");
-            else if((tipoTransacao == "TEF")&& (cliente.Conta.NumeroBanco != numeroBancoDestino))
-                throw new ArgumentException("Não é possível realizar uma TEF entre bancos distintos");
-
             this.NumeroBancoOrigem = cliente.Conta.NumeroBanco;
             this.NumeroAgenciaOrigem = cliente.Conta.NumeroAgencia;
             this.NumeroContaOrigem = cliente.Conta.NumeroConta;
@@ -33,8 +30,9 @@
             this.NumeroAgenciaDestino = numeroAgenciaDestino;
             this.NumeroContaDestino = numeroContaDestino;
             this.TipoTransacao = tipoTransacao;
-            this.SentidoTransacao = 0;
+            this.SentidoTransacao = sentidoTransacao;
             this.ValorTransacao = valorTransacao;
+            this.Resolucao = "Aguardando aprovação";
         }
 
         //Construtor para CsvHelper
@@ -47,13 +45,9 @@
             int numeroContaDestino,
             string tipoTransacao,
             byte sentidoTransacao,
-            decimal valorTransacao)
+            decimal valorTransacao,
+            string resolucao)
         {
-            if (!TiposDeTransacaoDiponiveis.Contains(tipoTransacao))
-                throw new ArgumentException("Tipo de transação inválido!");
-            else if((tipoTransacao == "TEF")&& (numeroBancoOrigem != numeroBancoDestino))
-                throw new ArgumentException("Não é possível realizar uma TEF entre bancos distintos");
-
             this.NumeroBancoOrigem = numeroBancoOrigem;
             this.NumeroAgenciaOrigem = numeroAgenciaOrigem;
             this.NumeroContaOrigem = numeroContaOrigem;
@@ -63,10 +57,7 @@
             this.TipoTransacao = tipoTransacao;
             this.SentidoTransacao = sentidoTransacao;
             this.ValorTransacao = valorTransacao;
-        }
-        static void Pedro()
-        {
-            
+            this.Resolucao = resolucao;
         }
     }
 }

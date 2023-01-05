@@ -3,7 +3,7 @@ using System.Globalization;
 using CsvHelper;
 using CsvHelper.Configuration;
 
-namespace AdaCredit
+namespace AdaCreditBackend
 {
     public partial class Usuario
     {
@@ -13,19 +13,20 @@ namespace AdaCredit
         public string Login{get;set;}
         public string HashSenha{get;set;}
         public string Salt{get;set;}
-        public Usuario(long cpf,string nomeCompleto, string login, string hashSenha, string salt)
+        public Usuario(long cpf,string nomeCompleto, bool contaAtiva, string login, string hashSenha, string salt)
         {
             this.Cpf = cpf;
             this.NomeCompleto = nomeCompleto;
+            this.ContaAtiva = contaAtiva;
             this.Login = login;
             this.Salt = salt;
             this.HashSenha = hashSenha;
         }
-        public Usuario(long cpf,string nomeCompleto, string senha)
+        public Usuario(long cpf,string nomeCompleto, string login, string senha)
         {
             this.Cpf = cpf;
             this.NomeCompleto = nomeCompleto;
-            this.Login = GerarStringLogin();
+            this.Login = login;
             this.Salt = GerarSalt();
             this.HashSenha = GerarHashSenha(senha,this.Salt);
         }
@@ -42,10 +43,6 @@ namespace AdaCredit
             this.Salt = GerarSalt();
             this.HashSenha = GerarHashSenha(novaSenha,this.Salt);
             return true;
-        }
-        public void DesativarConta()
-        {
-            this.ContaAtiva = false;
         }
     }
 }

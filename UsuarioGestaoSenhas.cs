@@ -3,7 +3,7 @@ using System.Globalization;
 using CsvHelper;
 using CsvHelper.Configuration;
 
-namespace AdaCredit
+namespace AdaCreditBackend
 {
     public partial class Usuario
     {

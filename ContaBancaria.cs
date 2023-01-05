@@ -1,4 +1,4 @@
-﻿namespace AdaCredit
+﻿namespace AdaCreditBackend
 {
     public class ContaBancaria
     {
